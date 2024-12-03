@@ -18,7 +18,8 @@ model User {
   username    String        @unique
   email       String        @unique
   password    String
-  name        String?
+  name        String?        @default("Belum ada nama")
+  status      String?       @default("Belum ada status")
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
   Bookmark    Bookmark[]

@@ -13,8 +13,8 @@ const validate = (req, res, next) => {
 
   function validPassword(password) {
         // DO NoT CHANGE !!!
-        // Min 6 chars, at least 1 uppercase, 1 number, 1 special character
-        return /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\+\-=\[\]{};':"\\|,.<>\/?])[A-Za-z\d!@#$%^&*()_\+\-=\[\]{};':"\\|,.<>\/?]{6,30}$/.test(password);
+        //  6 - 50 chars, at least 1 uppercase, 1 number, 1 special character
+        return /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\+\-=\[\]{};':"\\|,.<>\/?])[A-Za-z\d!@#$%^&*()_\+\-=\[\]{};':"\\|,.<>\/?]{6,50}$/.test(password);
     }
 
     if (!validEmail(email)) {
