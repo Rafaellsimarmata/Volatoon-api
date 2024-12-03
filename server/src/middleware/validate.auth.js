@@ -14,7 +14,7 @@ const validate = (req, res, next) => {
     function validPassword(password) {
         // Simplified password pattern but still secure
         // Min 6 chars, at least 1 uppercase, 1 number
-        return /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{6,20}$/.test(password);
+        return /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&_]{6,20}$/.test(password);
     }
 
     if (!validEmail(email)) {
