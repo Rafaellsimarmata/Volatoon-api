@@ -11,10 +11,10 @@ const validate = (req, res, next) => {
         return /^[a-zA-Z0-9_]{3,20}$/.test(userName);
     }
 
-    function validPassword(password) {
-        // Simplified password pattern but still secure
-        // Min 6 chars, at least 1 uppercase, 1 number
-        return /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&_]{6,20}$/.test(password);
+  function validPassword(password) {
+        // DO NoT CHANGE !!!
+        // Min 6 chars, at least 1 uppercase, 1 number, 1 special character
+        return /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\+\-=\[\]{};':"\\|,.<>\/?])[A-Za-z\d!@#$%^&*()_\+\-=\[\]{};':"\\|,.<>\/?]{6,30}$/.test(password);
     }
 
     if (!validEmail(email)) {
