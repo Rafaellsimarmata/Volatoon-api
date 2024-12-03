@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import authController from "./auth/auth.controller.js";
 import userController from "./user/user.controller.js";
 import bookmarkController from "./bookmark/bookmark.controller.js";
+import historyController from "./history/history.controller.js";
 import commentController from "./comment/comment.controller.js";
 
 // import unknownEndPoint from './middleware/unknownEndpoint.js';
@@ -21,6 +22,7 @@ app.get("/", (req, res) => {
 app.use("/api/auth/", authController);
 app.use("/api/", userController);
 app.use("/api/", bookmarkController);
+app.use("/api/", historyController);
 app.use("/api/", commentController);
 
 app.listen(port, () => {
