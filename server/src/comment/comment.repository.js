@@ -1,8 +1,8 @@
 import prisma from "../config/db.config.js"
 
-const findCommentsByChapterIdDb = async (komikId) => {
+const findCommentsByChapterIdDb = async (chapterId) => {
     const comments = await prisma.comment.findMany({
-        where: { komik_id: komikId },
+        where: { chapter_id: chapterId },
         include: {
             user: {
                 select: {

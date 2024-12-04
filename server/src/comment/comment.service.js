@@ -1,7 +1,7 @@
 import { findCommentsByChapterIdDb, addCommentDb, deleteCommentDb, likeCommentDb } from "./comment.repository.js"
 
-const getComments = async (komikId) => {
-    const comments = await findCommentsByChapterIdDb(komikId)
+const getComments = async (chapterId) => {
+    const comments = await findCommentsByChapterIdDb(chapterId)
     return comments
 }
 

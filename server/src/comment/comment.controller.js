@@ -4,9 +4,9 @@ import authenticateToken from '../middleware/token.auth.js';
 
 const router = Router();
 
-router.get("/comments/:komikId", authenticateToken, async (req, res) => {
+router.get("/comments/:chapterId", authenticateToken, async (req, res) => {
     try {
-        const comments = await getComments(req.params.komikId)
+        const comments = await getComments(req.params.chapterId)
         res.status(200).json({
             status: 200,
             message: "Comments retrieved successfully",
