@@ -36,6 +36,7 @@
     "array.prototype.tosorted": "^1.1.4",
     "arraybuffer.prototype.slice": "^1.0.3",
     "available-typed-arrays": "^1.0.7",
+    "axios": "^1.7.8",
     "balanced-match": "^1.0.2",
     "bcrypt": "^5.1.1",
     "brace-expansion": "^1.1.11",
