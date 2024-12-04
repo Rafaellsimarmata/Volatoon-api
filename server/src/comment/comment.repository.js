@@ -14,9 +14,19 @@ const findCommentsByChapterIdDb = async (chapterId) => {
         orderBy: {
             createdAt: 'desc'
         }
-    })
-    return comments
-}
+    });
+
+    // Map the results to rename fields
+    const mappedComments = comments.map(comment => ({
+        ...comment,
+        user: {
+            userName: comment.user.username, // Renaming `username` to `userName`
+            fullName: comment.user.name      // Renaming `name` to `fullName`
+        }
+    }));
+
+    return mappedComments;
+};
 
 const addCommentDb = async (userId, chapterId, content) => {
     console.log("as")
