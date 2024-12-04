@@ -8,4 +8,24 @@ const findUserByIdDb = async (userId) => {
     return user
 }
 
-export default findUserByIdDb
+
+const editUserByIdDb = async (userId, updatedData) => {
+    try {
+        // Update profil di database
+        const updatedUser = await prisma.user.update({
+            where: { user_id: userId },
+            data: {
+                ...updatedData,
+                updatedAt: new Date() // Tambahkan updatedAt untuk mencatat perubahan
+            }
+        });
+
+        return updatedUser;
+    } catch (error) {
+        console.error(error);
+        throw new Error("Error updating profile");
+    }
+};
+
+
+export {findUserByIdDb, editUserByIdDb}

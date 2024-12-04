@@ -1,4 +1,4 @@
-import findUserByIdDb from "./user.repository.js"
+import {findUserByIdDb, editUserByIdDb} from "./user.repository.js"
 
 const getUserDataById = async (userId) => {
     const userData = await findUserByIdDb(userId)
@@ -6,4 +6,10 @@ const getUserDataById = async (userId) => {
     return userData
 }
 
-export default getUserDataById
+const editUserDataById = async (userId, updatedData) => {
+    const updatedUser = await editUserByIdDb(userId, updatedData);
+    if (!updatedUser) throw new Error("Failed to update user data!");
+    return updatedUser;
+};
+
+export { getUserDataById, editUserDataById}

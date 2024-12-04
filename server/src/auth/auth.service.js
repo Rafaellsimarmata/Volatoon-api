@@ -27,13 +27,11 @@ const loginAccount = async (userData) => {
     const user = await findUserByEmailDb(userData.email)
     if (!user) throw new Error("Email or Password is incorrect!")
 
-    const isMatchPassword = bcrypt.compare(user.password, userData.password)
+    const isMatchPassword = await bcrypt.compare(userData.password, user.password) // Fix: Use await here
     if (!isMatchPassword) throw new Error("Email or Password is incorrect!")
-
-    // console.log("dari login account")
-    // console.log(user.user_id)
 
     return createToken(user.user_id)
 }
+
 
 export { registerAccount, loginAccount }
