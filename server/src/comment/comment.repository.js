@@ -18,11 +18,12 @@ const findCommentsByChapterIdDb = async (komikId) => {
     return comments
 }
 
-const addCommentDb = async (userId, komikId, content) => {
+const addCommentDb = async (userId, chapterId, content) => {
+    console.log("as")
     const comment = await prisma.comment.create({
         data: {
             userId,
-            komik_id: komikId,
+            chapter_id: chapterId,
             content
         },
         include: {

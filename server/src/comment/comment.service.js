@@ -5,9 +5,9 @@ const getComments = async (komikId) => {
     return comments
 }
 
-const addComment = async (userId, komikId, content) => {
+const addComment = async (userId, chapterId, content) => {
     if (!content.trim()) throw new Error("Comment cannot be empty")
-    const comment = await addCommentDb(userId, komikId, content)
+    const comment = await addCommentDb(userId, chapterId, content)
     return comment
 }
 
