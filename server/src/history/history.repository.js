@@ -31,7 +31,7 @@ const findHistoryByuserIdDb = async (userId) => {
 
 const deleteHistoryByHistoryIdDb = async (HistoryId) => {
     const result = await prisma.History.delete({
-        where: { History_id: HistoryId }
+        where: { history_id: HistoryId }
     })
 
     return result
