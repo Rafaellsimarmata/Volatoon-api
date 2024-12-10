@@ -10,16 +10,16 @@ const findHistory = async (userId) => {
     return result
 }
 
-const deleteHistory = async (HistoryId) => { 
+const deleteHistory = async (HistoryId) => {
     const result = await deleteHistoryByHistoryIdDb(HistoryId)
-    if(!result) throw new Error("failed deleting History")
+    if (!result) throw new Error("failed deleting History")
     return result
 }
 
-const addHistory = async (userId, HistoryData) => { 
+const addHistory = async (userId, HistoryData) => {
     const HistoryDataResult = await addHistoryByUserIdDb(userId, HistoryData)
-    if(!HistoryDataResult) throw new Error("failed adding category")
+    if (!HistoryDataResult) throw new Error("failed adding History")
     return HistoryDataResult
 }
 
-export {findHistory, deleteHistory, addHistory} 
+export { findHistory, deleteHistory, addHistory } 
