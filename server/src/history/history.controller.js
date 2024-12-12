@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { findHistory, deleteHistory, addHistory, addChapterHistory } from './history.service.js';
+import { findComicHistory, deleteHistory, addHistory, findChapterHistory } from './history.service.js';
 import authenticateToken from '../middleware/token.auth.js';
 
 const router = Router();
@@ -8,7 +8,7 @@ router.get("/history", authenticateToken, async (req, res) => {
     const { userId } = req.user;
 
     try {
-        const data = await findHistory(userId)
+        const data = await findComicHistory(userId)
 
         res.status(200).json({
             status: 200,
@@ -69,12 +69,12 @@ router.post("/history", authenticateToken, async (req, res) => {
 
 })
 
-router.post("/history/chapter", authenticateToken, async (req, res) => {
+router.get("/history/chapter", authenticateToken, async (req, res) => {
     const { userId } = req.user;
     const historyData = req.body
 
     try {
-        const Result = await addChapterHistory(userId, historyData)
+        const Result = await findChapterHistory(userId, historyData)
 
         res.status(201).json({
             status: 201,
