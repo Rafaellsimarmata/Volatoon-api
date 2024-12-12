@@ -11,10 +11,11 @@ const findBookmarkByuserIdDb = async (userId) => {
         result.map(async (bookmark) => {
             try {
                 const response = await axios.get(`https://api-otaku.vercel.app/api/komik/${bookmark.komik_id}`);
-                const { title, type, genres, status, score } = response.data;
+                const { title, type, genres, status, score, image } = response.data;
                 return {
                     ...bookmark,
                     comicDetails: {
+                        image,
                         title,
                         type,
                         genres,

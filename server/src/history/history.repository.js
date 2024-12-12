@@ -12,10 +12,11 @@ const findComicHistoryByuserIdDb = async (userId) => {
         result.map(async (history) => {
             try {
                 const response = await axios.get(`https://api-otaku.vercel.app/api/komik/${history.komik_id}`);
-                const { title, type, genres, status, score } = response.data;
+                const { title, type, genres, status, score, image } = response.data;
                 return {
                     ...history,
                     comicDetails: {
+                        image,
                         title,
                         type,
                         genres,
