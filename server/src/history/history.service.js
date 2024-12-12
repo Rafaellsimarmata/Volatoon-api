@@ -1,7 +1,8 @@
 import {
     findHistoryByuserIdDb,
     deleteHistoryByHistoryIdDb,
-    addHistoryByUserIdDb
+    addHistoryByUserIdDb,
+    addHistoryChapterByUserIdDb
 } from "./history.repository.js"
 
 const findHistory = async (userId) => {
@@ -22,4 +23,10 @@ const addHistory = async (userId, HistoryData) => {
     return HistoryDataResult
 }
 
-export { findHistory, deleteHistory, addHistory } 
+const addChapterHistory = async (userId, HistoryData) => {
+    const HistoryDataResult = await addHistoryChapterByUserIdDb(userId, HistoryData)
+    if (!HistoryDataResult) throw new Error("failed adding Chapter History")
+    return HistoryDataResult
+}
+
+export { findHistory, deleteHistory, addHistory, addChapterHistory } 

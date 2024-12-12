@@ -42,6 +42,17 @@ const addHistoryByUserIdDb = (userId, HistoryData) => {
         data: {
             userId: userId,
             komik_id: HistoryData.komikId,
+            chapter_id: null
+        }
+    })
+    return HistoryResult
+}
+
+const addHistoryChapterByUserIdDb = (userId, HistoryData) => {
+    const HistoryResult = prisma.History.create({
+        data: {
+            userId: userId,
+            chapter_id: HistoryData.chapterId,
         }
     })
     return HistoryResult
@@ -50,5 +61,6 @@ const addHistoryByUserIdDb = (userId, HistoryData) => {
 export {
     findHistoryByuserIdDb,
     deleteHistoryByHistoryIdDb,
-    addHistoryByUserIdDb
+    addHistoryByUserIdDb,
+    addHistoryChapterByUserIdDb
 }
