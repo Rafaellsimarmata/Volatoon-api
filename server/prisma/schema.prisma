@@ -14,33 +14,34 @@ datasource db {
 }
 
 model User {
-  user_id     String        @id @default(cuid())
-  username    String        @unique
-  email       String        @unique
-  password    String
-  name        String?        @default("Belum ada nama")
-  status      String?       @default("Belum ada status")
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-  Bookmark    Bookmark[]
-  History     History[]
-  Comment     Comment[]
+  user_id   String     @id @default(cuid())
+  username  String     @unique
+  email     String     @unique
+  password  String
+  name      String?    @default("Belum ada nama")
+  status    String?    @default("Belum ada status")
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  Bookmark  Bookmark[]
+  History   History[]
+  Comment   Comment[]
 }
 
 model Bookmark {
-   bookmark_id   String      @id @default(cuid())
-   user          User        @relation(fields: [userId], references: [user_id])
-   userId        String
-   komik_id      String 
-   createdAt     DateTime      @default(now())
+  bookmark_id String   @id @default(cuid())
+  user        User     @relation(fields: [userId], references: [user_id])
+  userId      String
+  komik_id    String
+  createdAt   DateTime @default(now())
 }
 
 model History {
-   history_id     String      @id @default(cuid())
-   user           User        @relation(fields: [userId], references: [user_id])
-   userId         String
-   komik_id       String 
-   createdAt      DateTime      @default(now())
+  history_id String   @id @default(cuid())
+  user       User     @relation(fields: [userId], references: [user_id])
+  userId     String
+  komik_id   String
+  chapter_id String
+  createdAt  DateTime @default(now())
 }
 
 model Comment {
@@ -49,6 +50,6 @@ model Comment {
   userId     String
   chapter_id String
   content    String
-  likes      Int      @default(0) 
+  likes      Int      @default(0)
   createdAt  DateTime @default(now())
 }

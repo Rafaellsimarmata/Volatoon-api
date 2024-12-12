@@ -1,12 +1,19 @@
 import {
-    findHistoryByuserIdDb,
+    findComicHistoryByuserIdDb,
     deleteHistoryByHistoryIdDb,
-    addHistoryByUserIdDb
+    addHistoryByUserIdDb,
+    findChapterHistoryByuserIdandComicIdDb
 } from "./history.repository.js"
 
-const findHistory = async (userId) => {
-    const result = await findHistoryByuserIdDb(userId)
+const findComicHistory = async (userId) => {
+    const result = await findComicHistoryByuserIdDb(userId)
     if (!result) throw new Error("User doesnt have any History!")
+    return result
+}
+
+const findChapterHistory = async (userId, searchData) => {
+    const result = await findChapterHistoryByuserIdandComicIdDb(userId, searchData)
+    if (!result) throw new Error("User doesnt have any History in this Comic!")
     return result
 }
 
@@ -22,4 +29,4 @@ const addHistory = async (userId, HistoryData) => {
     return HistoryDataResult
 }
 
-export { findHistory, deleteHistory, addHistory } 
+export { findComicHistory, deleteHistory, addHistory, findChapterHistory } 

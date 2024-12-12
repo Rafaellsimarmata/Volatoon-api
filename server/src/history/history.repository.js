@@ -1,20 +1,27 @@
 import prisma from "../config/db.config.js"
 import axios from "axios"
 
-const findHistoryByuserIdDb = async (userId) => {
-
-    const result = await prisma.History.findMany({
-        where: { userId }
-    })
+const findComicHistoryByuserIdDb = async (userId) => {
+    const result = await prisma.history.findMany({
+        where: { userId },
+        distinct: ['komik_id']
+    });
 
     // Fetch comic details from the external API for each comic_id
     const historyWithComicDetails = await Promise.all(
         result.map(async (history) => {
             try {
                 const response = await axios.get(`https://api-otaku.vercel.app/api/komik/${history.komik_id}`);
+                const { title, type, genres, status, score } = response.data;
                 return {
                     ...history,
-                    comicDetails: response.data // Attach comic details to the bookmark
+                    comicDetails: {
+                        title,
+                        type,
+                        genres,
+                        status,
+                        score
+                    }
                 };
             } catch (error) {
                 console.error(`Failed to fetch details for comic_id ${history.comic_id}`, error);
@@ -27,6 +34,17 @@ const findHistoryByuserIdDb = async (userId) => {
     );
 
     return historyWithComicDetails
+}
+
+const findChapterHistoryByuserIdandComicIdDb = async (userId, searchData) => {
+    const result = await prisma.history.findMany({
+        where: {
+            userId,
+            komik_id: searchData.komikId
+        }
+    });
+
+    return result
 }
 
 const deleteHistoryByHistoryIdDb = async (HistoryId) => {
@@ -42,13 +60,15 @@ const addHistoryByUserIdDb = (userId, HistoryData) => {
         data: {
             userId: userId,
             komik_id: HistoryData.komikId,
+            chapter_id: HistoryData.chapterId
         }
     })
     return HistoryResult
 }
 
 export {
-    findHistoryByuserIdDb,
+    findComicHistoryByuserIdDb,
     deleteHistoryByHistoryIdDb,
-    addHistoryByUserIdDb
+    addHistoryByUserIdDb,
+    findChapterHistoryByuserIdandComicIdDb
 }
