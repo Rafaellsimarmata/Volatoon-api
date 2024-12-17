@@ -1,4 +1,4 @@
-import { addUserDb, findUserByEmailDb, findUserByUsernameDb } from "./auth.repository.js"
+import { addUserDb, findUserByEmailDb, findUserByUsernameDb, updatePasswordDb } from "./auth.repository.js"
 import bcrypt from "bcrypt"
 import jwt from 'jsonwebtoken'
 
@@ -23,6 +23,13 @@ const registerAccount = async (userData) => {
     } else throw new Error("email already used!");
 }
 
+const updatePassword = async (email, newPassword) => {
+    return await updatePasswordDb(email, newPassword);
+}
+const findEmailOnDB = async (email) => {
+    return await findUserByEmailDb(email);
+    }
+
 const loginAccount = async (userData) => {
     const user = await findUserByEmailDb(userData.email)
     if (!user) throw new Error("Email or Password is incorrect!")
@@ -34,4 +41,4 @@ const loginAccount = async (userData) => {
 }
 
 
-export { registerAccount, loginAccount }
+export { registerAccount, loginAccount, updatePassword, findEmailOnDB }

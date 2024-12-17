@@ -1,4 +1,5 @@
 import prisma from "../config/db.config.js"
+import bcrypt from "bcrypt"
 
 const findUserByEmailDb = async (email) => {
     const user = await prisma.user.findUnique({
@@ -16,6 +17,14 @@ const findUserByUsernameDb = async (username) => {
     return user
 }
 
+const updatePasswordDb = async (email, newPassword) => {
+    const hashedPassword = await bcrypt.hash(newPassword, 12);
+    const user = await prisma.user.update({
+        where: { email },
+        data: { password: hashedPassword }
+    });
+    return user;
+}
 
 const addUserDb = async (userData) => {
     const user = await prisma.user.create({
@@ -34,5 +43,5 @@ export {
     findUserByEmailDb,
     findUserByUsernameDb,
     addUserDb,
-    
+    updatePasswordDb
 }
