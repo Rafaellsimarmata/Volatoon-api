@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import {getUserDataById, editUserDataById} from './user.service.js';
+import { getUserDataById, editUserDataById, utilizeVoucher } from './user.service.js';
 import authenticateToken from '../middleware/token.auth.js';
 const router = Router();
 
@@ -14,7 +14,9 @@ router.get("/profile", authenticateToken, async (req, res) => {
             userData: {
                 fullName: userRawData.name,
                 userName: userRawData.username,
-                email: userRawData.email
+                email: userRawData.email,
+                ispremium: userRawData.isPremium,
+                premiumUntil: userRawData.premium_until
             }
         });
     } catch (err) {
@@ -66,7 +68,39 @@ router.put("/profile", authenticateToken, async (req, res) => {
     }
 });
 
+router.post('/redeem', authenticateToken, async (req, res) => {
+    try {
+        const { userId } = req.user;
+        const { voucherCode } = req.body;
 
+        if (!voucherCode) {
+            return res.status(400).json({
+                status: 400,
+                message: "Voucher code is required",
+            });
+        }
+
+        const updatedUser = await utilizeVoucher(userId, voucherCode);
+
+        return res.status(200).json({
+            status: 200,
+            message: "Voucher Redeemed successfully",
+            userData: {
+                fullName: updatedUser.name,
+                userName: updatedUser.username,
+                email: updatedUser.email,
+                isPremium: updatedUser.isPremium,
+                premiumUntil: updatedUser.premium_until,
+            },
+        });
+    } catch (err) {
+        return res.status(400).json({
+            status: 400,
+            message: err.message,
+        });
+    }
+
+});
 
 
 export default router
