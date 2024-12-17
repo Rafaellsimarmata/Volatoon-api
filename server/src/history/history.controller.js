@@ -1,5 +1,11 @@
 import { Router } from 'express';
-import { findComicHistory, deleteHistory, addHistory, findChapterHistory } from './history.service.js';
+import {
+    findComicHistory,
+    deleteHistory,
+    addHistory,
+    findChapterHistory,
+    findLatestChapterHistory
+} from './history.service.js';
 import authenticateToken from '../middleware/token.auth.js';
 
 const router = Router();
@@ -78,7 +84,30 @@ router.get("/history/chapter", authenticateToken, async (req, res) => {
 
         res.status(201).json({
             status: 201,
-            message: "User History added successfully",
+            message: "User History retrieved successfully",
+            data: {
+                Result
+            }
+        })
+    } catch (err) {
+        return res.status(401).json({
+            status: 401,
+            message: err.message
+        })
+    }
+
+})
+
+router.get("/history/latest-chapter", authenticateToken, async (req, res) => {
+    const { userId } = req.user;
+    const historyData = req.body
+
+    try {
+        const Result = await findLatestChapterHistory(userId, historyData)
+
+        res.status(201).json({
+            status: 201,
+            message: "User History retrieved successfully",
             data: {
                 Result
             }

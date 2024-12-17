@@ -48,6 +48,20 @@ const findChapterHistoryByuserIdandComicIdDb = async (userId, searchData) => {
     return result
 }
 
+const findLatestChapterByUserIdandComicIdDb = async (userId, searchData) => {
+    const result = await prisma.history.findFirst({
+        where: {
+            userId,
+            komik_id: searchData.komikId
+        },
+        orderBy: {
+            createdAt: 'desc'
+        }
+    });
+
+    return result
+}
+
 const deleteHistoryByHistoryIdDb = async (HistoryId) => {
     const result = await prisma.History.delete({
         where: { history_id: HistoryId }
@@ -71,5 +85,6 @@ export {
     findComicHistoryByuserIdDb,
     deleteHistoryByHistoryIdDb,
     addHistoryByUserIdDb,
-    findChapterHistoryByuserIdandComicIdDb
+    findChapterHistoryByuserIdandComicIdDb,
+    findLatestChapterByUserIdandComicIdDb
 }
