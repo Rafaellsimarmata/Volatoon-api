@@ -29,12 +29,14 @@ router.get("/history", authenticateToken, async (req, res) => {
     }
 })
 
-router.delete("/history/:historyId", authenticateToken, async (req, res) => {
+router.delete("/history/:comicId", authenticateToken, async (req, res) => {
 
-    const historyId = req.params.historyId;
+    const comicId = req.params.comicId;
+
+    console.log(comicId)
 
     try {
-        const historyDataDelete = await deleteHistory(historyId)
+        const historyDataDelete = await deleteHistory(comicId)
 
         res.status(200).json({
             status: 200,
@@ -44,8 +46,8 @@ router.delete("/history/:historyId", authenticateToken, async (req, res) => {
             }
         })
     } catch (err) {
-        return res.status(401).json({
-            status: 401,
+        return res.status(404).json({
+            status: 404,
             message: err.message
         })
     }
@@ -75,6 +77,8 @@ router.post("/history", authenticateToken, async (req, res) => {
 
 })
 
+
+// api untuk nampilin semua history user di satu buah komik
 router.get("/history/chapter", authenticateToken, async (req, res) => {
     const { userId } = req.user;
     const historyData = req.body

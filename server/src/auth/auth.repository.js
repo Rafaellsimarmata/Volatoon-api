@@ -2,10 +2,12 @@ import prisma from "../config/db.config.js"
 import bcrypt from "bcrypt"
 
 const findUserByEmailDb = async (email) => {
+    console.log("f")
     const user = await prisma.user.findUnique({
         where: { email }
     })
 
+    console.log(user)
     return user
 }
 
@@ -30,7 +32,7 @@ const addUserDb = async (userData) => {
     const user = await prisma.user.create({
         data: {
             username: userData.userName,
-            email: userData.email,  
+            email: userData.email,
             password: userData.password,
             name: userData.fullName
         }

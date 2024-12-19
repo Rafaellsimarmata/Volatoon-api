@@ -24,7 +24,7 @@ model User {
   updatedAt     DateTime   @updatedAt
   isPremium     Boolean    @default(false)
   premium_until DateTime?
-  isGoogle      Boolean    @default(false)
+  isGoogle      Boolean?   @default(false)
   Bookmark      Bookmark[]
   History       History[]
   Comment       Comment[]
