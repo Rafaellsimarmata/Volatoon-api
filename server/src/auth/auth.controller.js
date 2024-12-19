@@ -56,11 +56,17 @@ router.put("/update-password", validate, async (req, res) => {
 router.get("/find-user", validate, async (req, res) => {
     const { email } = req.query;
     try {
+        if (!email){
+            return res.status(400).json({
+                status: 400,
+                message: 'Email is required'
+            });
+        }
         const user = await findEmailOnDB(email);
         res.status(200).json({
             status: 200,
             message: "User found",
-            userData: user
+            userData: user.email
         });
     } catch (err) {
         return res.status(404).json({

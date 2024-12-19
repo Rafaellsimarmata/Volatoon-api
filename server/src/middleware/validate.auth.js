@@ -1,5 +1,6 @@
 const validate = (req, res, next) => {
-    const { userName, email, password, fullName } = req.body;
+    const { userName,  password, fullName } = req.body;
+    const email = req.body.email || req.query.email;
 
     function validEmail(userEmail) {
         // Simpler email validation pattern for mobile
@@ -17,7 +18,31 @@ const validate = (req, res, next) => {
         return /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\+\-=\[\]{};':"\\|,.<>\/?])[A-Za-z\d!@#$%^&*()_\+\-=\[\]{};':"\\|,.<>\/?]{6,5000}$/.test(password);
     }
 
+    if (req.path === '/find-user') {
+        if (!email) {
+            return res.status(400).json({
+                status: 400,
+                message: 'Email is required'
+            });
+        }
+        if (!validEmail(email)) {
+            return res.status(400).json({
+                status: 400,
+                message: 'Please enter a valid email address'
+            });
+        }
+        return next();
+    }
+
+    // Rest of your validation logic for other endpoints...
     if (!validEmail(email)) {
+        return res.status(400).json({
+            status: 400,
+            message: 'Please enter a valid email address'
+        });
+    }
+    if (!validEmail(email)) {
+        console.log(email)
         return res.status(400).json({
             status: 400,
             message: 'Please enter a valid email address'
