@@ -13,7 +13,7 @@ const registerAccount = async (userData) => {
     const user = await findUserByEmailDb(userData.email)
     const userName = await findUserByUsernameDb(userData.userName)
 
-    if (userName){
+    if (userName) {
         throw new Error("Username already used!");
     }
 
@@ -28,11 +28,13 @@ const updatePassword = async (email, newPassword) => {
 }
 const findEmailOnDB = async (email) => {
     return await findUserByEmailDb(email);
-    }
+}
 
 const loginAccount = async (userData) => {
     const user = await findUserByEmailDb(userData.email)
     if (!user) throw new Error("Email or Password is incorrect!")
+
+    console.log(user)
 
     const isMatchPassword = await bcrypt.compare(userData.password, user.password) // Fix: Use await here
     if (!isMatchPassword) throw new Error("Email or Password is incorrect!")

@@ -62,9 +62,9 @@ const findLatestChapterByUserIdandComicIdDb = async (userId, searchData) => {
     return result
 }
 
-const deleteHistoryByHistoryIdDb = async (HistoryId) => {
-    const result = await prisma.History.delete({
-        where: { history_id: HistoryId }
+const deleteHistoryByHistoryIdDb = async (comicId) => {
+    const result = await prisma.history.deleteMany({
+        where: { komik_id: comicId }
     })
 
     return result

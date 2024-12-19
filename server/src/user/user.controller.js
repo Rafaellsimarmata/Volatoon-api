@@ -15,6 +15,7 @@ router.get("/profile", authenticateToken, async (req, res) => {
                 fullName: userRawData.name,
                 userName: userRawData.username,
                 email: userRawData.email,
+                status: userRawData.status,
                 ispremium: userRawData.isPremium,
                 premiumUntil: userRawData.premium_until
             }
